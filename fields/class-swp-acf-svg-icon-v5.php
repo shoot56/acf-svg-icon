@@ -397,7 +397,7 @@ if ( ! class_exists( 'swp_acf_field_svg_icon' ) )  {
             wp_enqueue_style( 'select2', $select2_style, '', $select2_version );
 
             wp_enqueue_style( 'swp-acf-si', "{$url}assets/css/input{$min}.css", array( 'select2', 'acf-input' ), $version );
-            wp_enqueue_script( 'swp-acf-si', "{$url}assets/js/input{$min}.js", array( 'select2', 'acf-input' ), $version, true );
+            wp_enqueue_script( 'swp-acf-si', "{$url}assets/js/input.js", array( 'select2', 'acf-input' ), $version, true );
         }
 
         /**

@@ -46,7 +46,8 @@
                  * It seems that since ACF Pro 5.7.0, `acf.select.version` doesn't exist anymore :/
                  * Now, ACF Pro uses `acf.newSelect2` which doesn't offer the Select2 version in its properties.
                  */
-                var select2_version = acf.select2.version || get_acf_select2_version();
+                // var select2_version = acf.select2.version || get_acf_select2_version();
+                var select2_version = 4;
 
                 if ( select2_version == 4 ) {
                     select2_args.templateResult = function( state ) {
