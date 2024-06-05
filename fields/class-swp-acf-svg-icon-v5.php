@@ -142,7 +142,10 @@ if ( ! class_exists( 'swp_acf_field_svg_icon' ) )  {
                     }
                 }
             } else {
-                $value = isset( $field['choices'][ $value ] ) ? $field['choices'][ $value ] : array();
+                // Fatal Error Illegal Offset if $value is empty array
+                if (is_string($value)) {
+                    $value = $field['choices'][$value] ?? array();
+                }
 
                 if ( ! empty( $value ) ) {
                     $value['_file_url'] = $field['file']['url'];
