@@ -142,7 +142,6 @@ if ( ! class_exists( 'swp_acf_field_svg_icon' ) )  {
                     }
                 }
             } else {
-                // Fatal Error Illegal Offset if $value is empty array
                 if (is_string($value)) {
                     $value = $field['choices'][$value] ?? array();
                 }
