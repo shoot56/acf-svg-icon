@@ -316,11 +316,12 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 $field['choices'] = $prepend + $field['choices'];
             }
 
+            $sufix = '?ver='. filemtime($field['file']['path']);
             $atts = array(
                 'id' => $field['id'],
                 'class' => $field['class'],
                 'name' => $field['name'],
-                'data-file_url' => $field['file']['url'],
+                'data-file_url' => $field['file']['url'] . $sufix,
                 'data-ui' => $field['ui'],
                 'data-ajax' => $field['ajax'],
                 'data-multiple' => $field['multiple'],
@@ -487,21 +488,24 @@ if (!class_exists('swp_acf_field_svg_icon')) {
             }
 
             // Get all symbols' data
+
             $data = array();
             preg_match_all('/<!--\s*swp-acf-si:(.*?)\s*(\{.*?\}){1}\s*-->/', $content, $_comments);
+
             foreach ($_comments[0] as $index => $_comment) {
                 $key = $_comments[1][$index];
 
                 $data[$key] = json_decode($_comments[2][$index], true);
+
 
                 if ($data[$key] === null) {
                     unset($data[$key]);
                 }
             }
 
+
             // Merge data into symbols
             $icons = array_merge_recursive($symbols, $data);
-
             // Cache the result until the file is modified
             set_transient($cachekey_time, time(), YEAR_IN_SECONDS);
             set_transient($cachekey, $icons, YEAR_IN_SECONDS);

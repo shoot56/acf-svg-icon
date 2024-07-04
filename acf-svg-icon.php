@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: SVG Icon
 Plugin URI: https://github.com/7studio/acf-svg-icon
 Description: Add a new ACF field type: "SVG Icon" which allows you to select icon(s) from a SVG sprite.
-Version: 1.1.0
+Version: 1.1.1
 Author: org100h
 Author URI: http://www.7studio.fr
 License: GPLv2 or later
@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 
-define( 'SWP_ACF_SVG_ICON_VERSION', '1.1.0' );
+define( 'SWP_ACF_SVG_ICON_VERSION', '1.1.1' );
 define( 'SWP_ACF_SVG_ICON_FILE', __FILE__ );
 define( 'SWP_ACF_SVG_ICON_URL', plugin_dir_url( SWP_ACF_SVG_ICON_FILE ) );
 define( 'SWP_ACF_SVG_ICON_DIR', plugin_dir_path( SWP_ACF_SVG_ICON_FILE ) );
@@ -82,23 +82,33 @@ if ( ! class_exists( 'swp_acf_plugin_svg_icon' ) ) {
 
     new swp_acf_plugin_svg_icon();
 
-//    if(!function_exists('sprite_svg')){
-//        function sprite_svg( $spriteName, $svgWidth = '24', $svgHeight = '24', $return = '' , $file = "/images/icons.svg" ) {
-//            $svg = get_stylesheet_directory_uri() . $file . '?ver='. filemtime(get_template_directory() . $file) .'#' . $spriteName;
-//            $elWidth = '';
-//            $elHeight = '';
-//            if (isset($svgWidth)) {
-//                $elWidth = 'width="' . $svgWidth . '"';
-//            }
-//            if (isset($svgHeight)) {
-//                $elHeight = 'height="' . $svgHeight . '"';
-//            }
-//            $iconHtml = '<svg class="svg-icon '. $spriteName .'" '.$elWidth.' '.$elHeight.'"><use xlink:href="' . $svg . '"></use></svg>';
-//            if ($return) {
-//                return $iconHtml;
-//            } else {
-//                echo $iconHtml;
-//            }
-//        }
-//    }
+    if(!function_exists('acf_sprite_svg')){
+        /**
+         * Retrieves the SVG icon from a sprite and generates the HTML for displaying it.
+         *
+         * @param string $spriteName The name of the sprite icon.
+         * @param string $svgWidth Optional. The width of the SVG icon. Default is '24'.
+         * @param string $svgHeight Optional. The height of the SVG icon. Default is '24'.
+         * @param string $return Optional. Whether to return the HTML or echo it. Default is an empty string.
+         * @param string $file Optional. The path to the SVG sprite file. Default is "/images/icons.svg".
+         * @return string|null If $return is set to true, returns the HTML for the SVG icon. Otherwise, echoes it.
+         */
+        function acf_sprite_svg($spriteName, $svgWidth = '24', $svgHeight = '24', $return = '' , $file = "/images/icons.svg" ) {
+            $svg = get_stylesheet_directory_uri() . $file . '?ver='. filemtime(get_template_directory() . $file) .'#' . $spriteName;
+            $elWidth = '';
+            $elHeight = '';
+            if (isset($svgWidth)) {
+                $elWidth = 'width="' . $svgWidth . '"';
+            }
+            if (isset($svgHeight)) {
+                $elHeight = 'height="' . $svgHeight . '"';
+            }
+            $iconHtml = '<svg class="svg-icon '. $spriteName .'" '.$elWidth.' '.$elHeight.'"><use xlink:href="' . $svg . '"></use></svg>';
+            if ($return) {
+                return $iconHtml;
+            } else {
+                echo $iconHtml;
+            }
+        }
+    }
 }
