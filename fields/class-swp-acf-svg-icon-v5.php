@@ -36,7 +36,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 'placeholder' => '',
                 'return_format' => 'value',
                 'default_path' => 'images',
-                'svg_files' => 'icons.svg',
+                'svg_files' => get_theme_file_path() . 'images/icons.svg',
             );
             $this->l10n = array(
                 'matches_1' => _x('One result is available, press enter to select it.', 'Select2 JS matches_1', 'acf'),
