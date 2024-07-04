@@ -81,4 +81,24 @@ if ( ! class_exists( 'swp_acf_plugin_svg_icon' ) ) {
     }
 
     new swp_acf_plugin_svg_icon();
+
+    if(!function_exists('sprite_svg')){
+        function sprite_svg( $spriteName, $svgWidth = '24', $svgHeight = '24', $return = '' , $file = "/images/icons.svg" ) {
+            $svg = get_stylesheet_directory_uri() . $file . '?ver='. filemtime(get_template_directory() . $file) .'#' . $spriteName;
+            $elWidth = '';
+            $elHeight = '';
+            if (isset($svgWidth)) {
+                $elWidth = 'width="' . $svgWidth . '"';
+            }
+            if (isset($svgHeight)) {
+                $elHeight = 'height="' . $svgHeight . '"';
+            }
+            $iconHtml = '<svg class="svg-icon '. $spriteName .'" '.$elWidth.' '.$elHeight.'"><use xlink:href="' . $svg . '"></use></svg>';
+            if ($return) {
+                return $iconHtml;
+            } else {
+                echo $iconHtml;
+            }
+        }
+    }
 }
