@@ -455,7 +455,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
         {
 
             if (!file_exists($file_path)) {
-                return array();
+                $file_path = get_theme_file_path() . '/images/icons.svg';
             }
 
             $icons = array();
