@@ -229,10 +229,8 @@ if (!class_exists('swp_acf_field_svg_icon')) {
             if (array_key_exists('svg_files', $field)) {
                 $field['file']['path'] = $field['svg_files'];
             } else {
-                $field['file']['path'] = $field['default_path'] ?? 'images/' . 'icons.svg';
+                $field['file']['path'] = get_theme_file_path() . '/images/icons.svg';
             }
-
-
 
             //$field['file']['path'] = apply_filters("acf/fields/svg_icon/file_path", '', $field);
             $field['file']['path'] = apply_filters("acf/fields/svg_icon/file_path/name={$field['_name']}", $field['file']['path'], $field);

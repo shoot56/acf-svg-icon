@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: SVG Icon
 Plugin URI: https://github.com/7studio/acf-svg-icon
 Description: Add a new ACF field type: "SVG Icon" which allows you to select icon(s) from a SVG sprite.
-Version: 1.0.6
+Version: 1.0.7
 Author: Xavier Zalawa
 Author URI: http://www.7studio.fr
 License: GPLv2 or later
@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 
-define( 'SWP_ACF_SVG_ICON_VERSION', '1.0.6' );
+define( 'SWP_ACF_SVG_ICON_VERSION', '1.0.7' );
 define( 'SWP_ACF_SVG_ICON_FILE', __FILE__ );
 define( 'SWP_ACF_SVG_ICON_URL', plugin_dir_url( SWP_ACF_SVG_ICON_FILE ) );
 define( 'SWP_ACF_SVG_ICON_DIR', plugin_dir_path( SWP_ACF_SVG_ICON_FILE ) );
@@ -82,23 +82,23 @@ if ( ! class_exists( 'swp_acf_plugin_svg_icon' ) ) {
 
     new swp_acf_plugin_svg_icon();
 
-    if(!function_exists('sprite_svg')){
-        function sprite_svg( $spriteName, $svgWidth = '24', $svgHeight = '24', $return = '' , $file = "/images/icons.svg" ) {
-            $svg = get_stylesheet_directory_uri() . $file . '?ver='. filemtime(get_template_directory() . $file) .'#' . $spriteName;
-            $elWidth = '';
-            $elHeight = '';
-            if (isset($svgWidth)) {
-                $elWidth = 'width="' . $svgWidth . '"';
-            }
-            if (isset($svgHeight)) {
-                $elHeight = 'height="' . $svgHeight . '"';
-            }
-            $iconHtml = '<svg class="svg-icon '. $spriteName .'" '.$elWidth.' '.$elHeight.'"><use xlink:href="' . $svg . '"></use></svg>';
-            if ($return) {
-                return $iconHtml;
-            } else {
-                echo $iconHtml;
-            }
-        }
-    }
+//    if(!function_exists('sprite_svg')){
+//        function sprite_svg( $spriteName, $svgWidth = '24', $svgHeight = '24', $return = '' , $file = "/images/icons.svg" ) {
+//            $svg = get_stylesheet_directory_uri() . $file . '?ver='. filemtime(get_template_directory() . $file) .'#' . $spriteName;
+//            $elWidth = '';
+//            $elHeight = '';
+//            if (isset($svgWidth)) {
+//                $elWidth = 'width="' . $svgWidth . '"';
+//            }
+//            if (isset($svgHeight)) {
+//                $elHeight = 'height="' . $svgHeight . '"';
+//            }
+//            $iconHtml = '<svg class="svg-icon '. $spriteName .'" '.$elWidth.' '.$elHeight.'"><use xlink:href="' . $svg . '"></use></svg>';
+//            if ($return) {
+//                return $iconHtml;
+//            } else {
+//                echo $iconHtml;
+//            }
+//        }
+//    }
 }
