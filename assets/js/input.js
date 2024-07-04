@@ -21,13 +21,13 @@
         var el_select_args = $el_select.data();
         var render_icon = function(id, text) {
             var output = '';
-            output += '<span class="select2-swp-acf-si">';
+            output += '<span class="select2-swp-acf-si" >';
             output += '<svg class="select2-swp-acf-si__icon" aria-hidden="true" role="img">';
             output += '<use xlink:href="' + el_select_args.file_url + '#' + id + '"></use>';
             output += '</svg>';
-            output += text != '' ? '<span class="select2-swp-acf-si__name">' + text + '</span>' : '';
+            output += text != '' ? '<span class="select2-swp-acf-si__name">' + text + '</span>' : '<span>' + id + '</span>';
             output += '</span>';
-    
+
             return output;
         };
 
@@ -35,31 +35,35 @@
             if ($el_select.is($select)) {
                 // Determine Select2 version
                 var select2_version = acf.select2.version || get_acf_select2_version();
-    
+
                 if (select2_version == 4) {
                     // Customize templateResult and templateSelection for Select2 v4
                     select2_args.templateResult = function(state) {
+                        console.log(state);
                         return $(render_icon(state.id, state.text)); // Return jQuery-wrapped HTML element
                     };
                     select2_args.templateSelection = function(state) {
+                        console.log(state);
                         return $(render_icon(state.id, state.text)); // Return jQuery-wrapped HTML element
                     };
                 } else {
                     // Customize formatResult and formatSelection for Select2 v3
                     select2_args.formatResult = function(result, container, query, escapeMarkup) {
+                        console.log(state);
                         return render_icon(result.id, result.text); // Return HTML directly
                     };
                     select2_args.formatSelection = function(object, $container) {
+                        console.log(state);
                         return render_icon(object.id, object.text); // Return HTML directly
                     };
                 }
-    
+
                 // Configure escapeMarkup to allow HTML
                 select2_args.escapeMarkup = function(markup) {
                     return markup; // Do not escape HTML
                 };
             }
-    
+
             return select2_args;
         });
 
