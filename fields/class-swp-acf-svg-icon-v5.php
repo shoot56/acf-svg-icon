@@ -463,15 +463,15 @@ if (!class_exists('swp_acf_field_svg_icon')) {
             $icons = array();
 
             // Try to get icons from the cache
-            $key_suffix = md5($file_path);
-            $cachekey = 'swp_acf_svg_icon_' . $key_suffix;
-            $cachekey_time = 'swp_acf_svg_icon_time_' . $key_suffix;
+//            $key_suffix = md5($file_path);
+//            $cachekey = 'swp_acf_svg_icon_' . $key_suffix;
+//            $cachekey_time = 'swp_acf_svg_icon_time_' . $key_suffix;
 
-            if (false !== ($_time = get_transient($cachekey_time))
-                && filemtime($file_path) <= $_time
-                && false !== ($icons = get_transient($cachekey))) {
-                return $icons;
-            }
+//            if (false !== ($_time = get_transient($cachekey_time))
+//                && filemtime($file_path) <= $_time
+//                && false !== ($icons = get_transient($cachekey))) {
+//                return $icons;
+//            }
 
             // Get SVG sprite content
             $content = file_get_contents($file_path);
@@ -507,8 +507,8 @@ if (!class_exists('swp_acf_field_svg_icon')) {
             // Merge data into symbols
             $icons = array_merge_recursive($symbols, $data);
             // Cache the result until the file is modified
-            set_transient($cachekey_time, time(), YEAR_IN_SECONDS);
-            set_transient($cachekey, $icons, YEAR_IN_SECONDS);
+//            set_transient($cachekey_time, time(), YEAR_IN_SECONDS);
+//            set_transient($cachekey, $icons, YEAR_IN_SECONDS);
 
             return $icons;
         }
