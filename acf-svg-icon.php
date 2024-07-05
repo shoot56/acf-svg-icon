@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: SVG Icon
 Plugin URI: https://github.com/7studio/acf-svg-icon
 Description: Add a new ACF field type: "SVG Icon" which allows you to select icon(s) from a SVG sprite.
-Version: 1.1.3
+Version: 1.1.4
 Author: org100h
 Author URI: http://www.7studio.fr
 License: GPLv2 or later
@@ -21,8 +21,6 @@ Primary Branch: main
 if ( ! defined( 'WPINC' ) ) {
     die( 'Something went wrong.' );
 }
-
-
 
 define( 'SWP_ACF_SVG_ICON_VERSION', '1.1.3' );
 define( 'SWP_ACF_SVG_ICON_FILE', __FILE__ );
