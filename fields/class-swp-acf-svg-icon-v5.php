@@ -543,7 +543,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
         {
             return is_child_theme()
                 ? get_stylesheet_directory() . '/'
-                : get_theme_file_path();
+                : get_theme_file_path() . '/';
         }
 
     }
