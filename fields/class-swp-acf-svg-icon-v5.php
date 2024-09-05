@@ -36,7 +36,9 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 'placeholder' => '',
                 'return_format' => 'value',
                 'default_path' => 'images',
-                'svg_files' => get_theme_file_path() . '/images/icons.svg',
+                'svg_files' => $this->theme_path() . '/images/icons.svg',
+
+
             );
             $this->l10n = array(
                 'matches_1' => _x('One result is available, press enter to select it.', 'Select2 JS matches_1', 'acf'),
@@ -120,7 +122,9 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 'type' => 'select',
                 'name' => 'svg_files',
                 'choices' => $icons_list,
-                'default_value' => $icons_list[array_key_first($icons_list)]
+                'default_value' => !empty($icons_list)
+                    ? $icons_list[array_key_first($icons_list)]
+                    : null
             ));
         }
 
@@ -227,11 +231,9 @@ if (!class_exists('swp_acf_field_svg_icon')) {
 
             $field['file'] = array();
 
-            if (array_key_exists('svg_files', $field)) {
-                $field['file']['path'] = $field['svg_files'];
-            } else {
-                $field['file']['path'] = '/images/icons.svg';
-            }
+            $field['file']['path'] = array_key_exists('default_path', $field)
+                ? $field['default_path'] . '/icons.svg'
+                : '/images/icons.svg';
 
             $field['file']['path'] = apply_filters("acf/fields/svg_icon/file_path/name={$field['_name']}", $field['file']['path'], $field);
             $field['file']['path'] = apply_filters("acf/fields/svg_icon/file_path/key={$field['key']}", $field['file']['path'], $field);
@@ -314,7 +316,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 $field['choices'] = $prepend + $field['choices'];
             }
 
-            $sufix = '?ver=' . filemtime(get_theme_file_path() . $field['file']['path']);
+            $sufix = '?ver=' . filemtime($this->theme_path() . $field['file']['path']);
             $atts = array(
                 'id' => $field['id'],
                 'class' => $field['class'],
@@ -454,26 +456,16 @@ if (!class_exists('swp_acf_field_svg_icon')) {
         public function parse_svg_sprite($file_path = '')
         {
 
-            $file_path = get_theme_file_path() . $file_path;
+            $file_path = $this->theme_path() . $file_path;
 
-            if (!file_exists($file_path)) {
-                $file_path = get_theme_file_path() . '/images/icons.svg';
+            if (file_exists($file_path)) {
+                // Get SVG sprite content
+                $content = file_get_contents($file_path);
+            } else {
+                return [];
             }
 
 
-            // Try to get icons from the cache
-//            $key_suffix = md5($file_path);
-//            $cachekey = 'swp_acf_svg_icon_' . $key_suffix;
-//            $cachekey_time = 'swp_acf_svg_icon_time_' . $key_suffix;
-
-//            if (false !== ($_time = get_transient($cachekey_time))
-//                && filemtime($file_path) <= $_time
-//                && false !== ($icons = get_transient($cachekey))) {
-//                return $icons;
-//            }
-
-            // Get SVG sprite content
-            $content = file_get_contents($file_path);
             // Remove all HTML comments except the plugin' ones (`<!-- swp-acf-si: -->`)
             $content = preg_replace('/<!--\s*((?!swp-acf-si:).|\n)*\s*-->/', '', $content);
             // Strip all unneeded HTML tags (thanks: )
@@ -524,7 +516,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
         {
 
             $svg_files = [];
-            $dir = get_template_directory() . '/' . $field["default_path"] ?? '/images/';
+            $dir = $this->theme_path() . '/' . $field["default_path"] ?? '/images/';
             if (is_dir($dir)) {
                 $files = scandir($dir);
 
@@ -535,6 +527,23 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 }
             }
             return $svg_files;
+        }
+
+        /**
+         * theme_path()
+         *
+         * Determines the file path of the current theme.
+         *
+         * If a child theme is active, it returns the stylesheet directory of the child theme.
+         * Otherwise, it returns the file path of the parent theme.
+         *
+         * @return string Path of the active theme directory.
+         */
+        private function theme_path(): string
+        {
+            return is_child_theme()
+                ? get_stylesheet_directory() . '/'
+                : get_theme_file_path();
         }
 
     }
