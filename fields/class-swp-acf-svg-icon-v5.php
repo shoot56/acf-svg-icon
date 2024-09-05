@@ -169,7 +169,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                     $value[$i] = isset($field['choices'][$v]) ? $field['choices'][$v] : array();
 
                     if (!empty($value[$i])) {
-                        $value[$i]['_file_url'] = get_theme_file_uri() . $field['file']['path'];
+                        $value[$i]['_file_url'] = $this->theme_uri() . $field['file']['path'];
                     }
                 }
             } else {
@@ -178,7 +178,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 }
 
                 if (!empty($value)) {
-                    $value['_file_url'] = get_theme_file_uri() . $field['file']['path'];
+                    $value['_file_url'] = $this->theme_uri() . $field['file']['path'];
                 }
             }
 
@@ -321,7 +321,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
                 'id' => $field['id'],
                 'class' => $field['class'],
                 'name' => $field['name'],
-                'data-file_url' => get_theme_file_uri() . $field['file']['path'] . $sufix,
+                'data-file_url' => $this->theme_uri() . $field['file']['path'] . $sufix,
                 'data-ui' => $field['ui'],
                 'data-ajax' => $field['ajax'],
                 'data-multiple' => $field['multiple'],
@@ -544,6 +544,21 @@ if (!class_exists('swp_acf_field_svg_icon')) {
             return is_child_theme()
                 ? get_stylesheet_directory() . '/'
                 : get_theme_file_path() . '/';
+        }
+
+        /**
+         * theme_uri()
+         *
+         * Retrieves the URI of the current theme. If the current theme is a child theme,
+         * it returns the stylesheet directory URI. Otherwise, it returns the theme file URI.
+         *
+         * @return string The URI of the current theme.
+         */
+        private function theme_uri(): string
+        {
+            return is_child_theme()
+                ? get_stylesheet_directory_uri() . '/'
+                : get_theme_file_uri() . '/';
         }
 
     }
