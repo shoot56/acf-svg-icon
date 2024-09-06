@@ -231,8 +231,9 @@ if (!class_exists('swp_acf_field_svg_icon')) {
 
             $field['file'] = array();
 
+            var_dump($field['svg_files']);
             $field['file']['path'] = array_key_exists('default_path', $field)
-                ? $field['default_path'] . '/icons.svg'
+                ? $field['svg_files']
                 : '/images/icons.svg';
 
             $field['file']['path'] = apply_filters("acf/fields/svg_icon/file_path/name={$field['_name']}", $field['file']['path'], $field);
@@ -456,8 +457,10 @@ if (!class_exists('swp_acf_field_svg_icon')) {
         public function parse_svg_sprite($file_path = '')
         {
 
+
             $file_path = $this->theme_path() . $file_path;
 
+            var_dump($file_path);
             if (file_exists($file_path)) {
                 // Get SVG sprite content
                 $content = file_get_contents($file_path);
@@ -522,7 +525,7 @@ if (!class_exists('swp_acf_field_svg_icon')) {
 
                 foreach ($files as $file) {
                     if (pathinfo($file, PATHINFO_EXTENSION) === 'svg') {
-                        $svg_files['/' . $field["default_path"] . '/' . $file] = str_replace('.svg', '', $file);
+                        $svg_files[ $field["default_path"] . '/' . $file] = str_replace('.svg', '', $file);
                     }
                 }
             }
