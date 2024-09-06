@@ -231,7 +231,6 @@ if (!class_exists('swp_acf_field_svg_icon')) {
 
             $field['file'] = array();
 
-            var_dump($field['svg_files']);
             $field['file']['path'] = array_key_exists('default_path', $field)
                 ? $field['svg_files']
                 : '/images/icons.svg';
@@ -460,7 +459,6 @@ if (!class_exists('swp_acf_field_svg_icon')) {
 
             $file_path = $this->theme_path() . $file_path;
 
-            var_dump($file_path);
             if (file_exists($file_path)) {
                 // Get SVG sprite content
                 $content = file_get_contents($file_path);
