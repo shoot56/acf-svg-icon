@@ -30,6 +30,17 @@ function tc_acf_svg_icon_file_path( $file_path ) {
 }
 ```
 
+### custom output
+
+```php
+acf_sprite_svg($spriteName, $svgWidth = '24', $svgHeight = '24', $return = '' , $file = "/images/icons.svg" );
+
+// example:
+$icon = get_field( 'icon' );
+
+acf_sprite_svg($icon['ID'], 16, 16, '', '/images/social-icons.svg')
+```
+
 ### Translate the SVG text alternatives
 
 There are four possible ways to use this feature.

@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: SVG Icon
 Plugin URI: https://github.com/7studio/acf-svg-icon
 Description: Add a new ACF field type: "SVG Icon" which allows you to select icon(s) from a SVG sprite.
-Version: 1.1.4
+Version: 1.1.9
 Author: org100h
 Author URI: http://www.7studio.fr
 License: GPLv2 or later
@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
     die( 'Something went wrong.' );
 }
 
-define( 'SWP_ACF_SVG_ICON_VERSION', '1.1.3' );
+define( 'SWP_ACF_SVG_ICON_VERSION', '1.1.9' );
 define( 'SWP_ACF_SVG_ICON_FILE', __FILE__ );
 define( 'SWP_ACF_SVG_ICON_URL', plugin_dir_url( SWP_ACF_SVG_ICON_FILE ) );
 define( 'SWP_ACF_SVG_ICON_DIR', plugin_dir_path( SWP_ACF_SVG_ICON_FILE ) );
@@ -92,7 +92,9 @@ if ( ! class_exists( 'swp_acf_plugin_svg_icon' ) ) {
          * @return string|null If $return is set to true, returns the HTML for the SVG icon. Otherwise, echoes it.
          */
         function acf_sprite_svg($spriteName, $svgWidth = '24', $svgHeight = '24', $return = '' , $file = "/images/icons.svg" ) {
-            $svg = get_stylesheet_directory_uri() . $file . '?ver='. filemtime(get_template_directory() . $file) .'#' . $spriteName;
+            $svg = get_stylesheet_directory_uri() . $file . '?ver='. filemtime(is_child_theme()
+                    ? get_stylesheet_directory() . $file
+                    : get_theme_file_path() . $file) . '#' . $spriteName;
             $elWidth = '';
             $elHeight = '';
             if (isset($svgWidth)) {
