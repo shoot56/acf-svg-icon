@@ -9,6 +9,13 @@ if (!class_exists('swp_acf_field_svg_icon')) {
     class swp_acf_field_svg_icon extends acf_field
     {
         /**
+         * Plugin settings
+         *
+         * @var array
+         */
+        public $settings;
+
+        /**
          * __construct
          *
          * This function will setup the field type data
